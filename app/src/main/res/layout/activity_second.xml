@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecondActivity">
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="386dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="663dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Search"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupSecondActivity"
+        android:layout_width="167dp"
+        android:layout_height="26dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButtonMovieSecActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSerieSecActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serie"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewQuantity"
+        android:layout_width="229dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="56dp"
+        android:text=""
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listViewSearch"
+        android:layout_width="0dp"
+        android:layout_height="601dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+
+</android.support.constraint.ConstraintLayout>
