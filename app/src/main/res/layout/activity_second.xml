@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".SecondActivity"
+    android:background="@color/colorPrimary">
 
     <EditText
         android:id="@+id/editTextName"
@@ -15,9 +16,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="663dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Search"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#333"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Movie"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#333"
             android:textSize="17sp" />
 
         <RadioButton
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Serie"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#333"
             android:textSize="17sp" />
     </RadioGroup>
 
@@ -59,6 +59,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="56dp"
+        android:textColor="#333"
         android:text=""
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +74,8 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        android:background="@color/colorPrimary"/>
 
 
 </android.support.constraint.ConstraintLayout>

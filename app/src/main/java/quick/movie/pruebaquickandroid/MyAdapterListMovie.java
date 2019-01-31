@@ -24,20 +24,20 @@ public class MyAdapterListMovie extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private ArrayList<String> search;
+    private ArrayList<String> listSearch;
 
 
-    public MyAdapterListMovie(Context context, int layout, ArrayList<String> search){
+    public MyAdapterListMovie(Context context, int layout, ArrayList<String> listSearch){
         this.context = context;
         this.layout = layout;
-        this.search = search;
+        this.listSearch = listSearch;
     }
     @Override
-    public int getCount() { return this.search.size(); }
+    public int getCount() { return this.listSearch.size(); }
 
     @Override
     public Object getItem(int position) {
-        return this.search.get(position);
+        return this.listSearch.get(position);
     }
 
     @Override
@@ -55,42 +55,36 @@ public class MyAdapterListMovie extends BaseAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(this.context);
         v = layoutInflater.inflate(R.layout.list_movie, null);
 
-        //Variables que se agregan al adaptador
+        //Variables del objeto
+        String currentImagen = "";
         String currentTitle = "";
         String currentYear = "";
 
-        //Se trae el valor actual dependiente de la posición
-        JSONObject myObject = new JSONObject((Map) search);
-        Log.d("SALIDA: ", myObject.optString("Title"));
-
+        String currentSearch = listSearch.get(position);
         try {
-            JSONArray jsonArraySearch = myObject.getJSONArray("Search");
-            for(int i = 0; i < jsonArraySearch.length(); i++ ){
-                JSONObject jsonObjectSearch = jsonArraySearch.getJSONObject(i);
-                currentTitle = jsonObjectSearch.optString("Title");
-                currentYear = jsonObjectSearch.optString("Year");
-            }
+            JSONObject myObject = new JSONObject(currentSearch);
+             currentImagen = myObject.optString("Poster");
+             currentTitle = myObject.optString("Title");
+             currentYear = myObject.optString("Year");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
         //Referenciamos el elemento a modificar y lo rellenamos
-        ImageView imagen = v.findViewById(R.id.imageViewSearch);
         TextView textViewTitle = v.findViewById(R.id.textViewTitleSearch);
         textViewTitle.setText(currentTitle);
         TextView textViewYear = v.findViewById(R.id.textViewYearSearch);
         textViewYear.setText(currentYear);
+        ImageView imagen = v.findViewById(R.id.imageViewSearch);
 
         Picasso.get()
-                .load(myObject.optString("Poster"))
-                .error(R.mipmap.ic_launcher)
-                .fit()
-                .centerInside()
-                .into(imagen);
+        .load(currentImagen)
+        .error(R.mipmap.ic_launcher)
+        .fit()
+        .centerInside()
+        .into(imagen);
 
-        //Devolvemos la vista inflada y modificada con los datos
         return v;
     }
-
 }

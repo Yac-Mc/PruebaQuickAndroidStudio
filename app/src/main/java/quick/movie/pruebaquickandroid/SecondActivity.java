@@ -33,7 +33,7 @@ public class SecondActivity extends AppCompatActivity {
 
     //Variables de uso para el SecondActivity
     private ListView listView;
-    private List<String> datosSearch;
+    private JSONArray datosSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +50,38 @@ public class SecondActivity extends AppCompatActivity {
             type = bundle.getInt("option");
         }
 
-        //Datos a mostrar
-        datosSearch = new ArrayList<String>();
         getData(nameMovieSerie, type);
 
+        //Datos a mostrar
+        final ArrayList<String> listSearch = new ArrayList<String>();
+        if (datosSearch != null) {
+            int len = datosSearch.length();
+            for (int i=0;i<len;i++){
+                try {
+                    listSearch.add(datosSearch.get(i).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         //Adaptador
-        ArrayAdapter<String> MyAdapterListMovie = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, datosSearch);
+        MyAdapterListMovie myAdapterListMovie = new MyAdapterListMovie(this, R.layout.list_movie, listSearch);
 
         //Enlazamos adaptador con list view
-        listView.setAdapter(MyAdapterListMovie);
+        listView.setAdapter(myAdapterListMovie);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JSONObject myObjectJson = (JSONObject) datosSearch;
-                String nameTitle = myObjectJson.optString("Title");
+                String currentCliked = listSearch.get(position);
+                String nameTitle ="";
+                try {
+                    JSONObject myObject = new JSONObject(currentCliked);
+                    nameTitle = myObject.optString("Title");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
                 intent.putExtra("nameTitle", nameTitle);
                 startActivity(intent);
@@ -80,9 +97,8 @@ public class SecondActivity extends AppCompatActivity {
         }else{
             typeMovieSerie = "Serie";
         }
-        String apiTitle = "http://www.omdbapi.com/?t=matrix&apikey=6c43c325";
         String apiSearch = "http://www.omdbapi.com/?s="+name+ "&apikey=6c43c325";
-        String search = "";
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -108,20 +124,10 @@ public class SecondActivity extends AppCompatActivity {
 
             json = response.toString();
             JSONObject myObject = new JSONObject(json);
-
             quantity.setText(myObject.optString("totalResults")+" Results for "+typeMovieSerie);
-
             JSONArray jsonArraySearch = myObject.getJSONArray("Search");
+            datosSearch = jsonArraySearch;
 
-            for(int i = 0; i < jsonArraySearch.length(); i++ ){
-                JSONObject jsonObjectSearch = jsonArraySearch.getJSONObject(i);
-                search = jsonObjectSearch.optString("Search");
-                datosSearch.add(search);
-            }
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
