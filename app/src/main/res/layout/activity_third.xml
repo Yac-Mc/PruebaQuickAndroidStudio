@@ -28,7 +28,7 @@
         android:id="@+id/textViewYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="22dp"
         android:text="TextView" />
 
     <TextView
@@ -36,7 +36,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:text="TextView" />
+        android:text="Calificación"
+        android:gravity="center"/>
+    <LinearLayout
+            android:id="@+id/ratings"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/star1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/star2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/star3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/star4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageView
+            android:id="@+id/star5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewGenre"

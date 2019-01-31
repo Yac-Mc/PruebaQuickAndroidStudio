@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,18 +17,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
     //Parametros del MainActivity
     private String nameMovieSerie = "";
-    private int type;
+    private String type;
     private TextView quantity;
-    private String typeMovieSerie = "";
 
     //Variables de uso para el SecondActivity
     private ListView listView;
@@ -40,6 +36,9 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        //Flecha para devolverse
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         listView = findViewById(R.id.listViewSearch);
         quantity = findViewById(R.id.textViewQuantity);
 
@@ -47,7 +46,7 @@ public class SecondActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             nameMovieSerie = bundle.getString("nameMovieSerie");
-            type = bundle.getInt("option");
+            type = bundle.getString("option");
         }
 
         getData(nameMovieSerie, type);
@@ -90,15 +89,9 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-    public void getData(String name, int type){
+    public void getData(String name, String type){
 
-        if(type == 1){
-            typeMovieSerie = "Movie";
-        }else{
-            typeMovieSerie = "Serie";
-        }
         String apiSearch = "http://www.omdbapi.com/?s="+name+ "&apikey=6c43c325";
-
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -124,9 +117,19 @@ public class SecondActivity extends AppCompatActivity {
 
             json = response.toString();
             JSONObject myObject = new JSONObject(json);
-            quantity.setText(myObject.optString("totalResults")+" Results for "+typeMovieSerie);
             JSONArray jsonArraySearch = myObject.getJSONArray("Search");
-            datosSearch = jsonArraySearch;
+
+            JSONArray jsonArraySearchFilter = new JSONArray();
+            for(int i = 0; i< jsonArraySearch.length(); i++ ){
+                JSONObject currentFilter = jsonArraySearch.getJSONObject(i);
+                String currentFilter2 = currentFilter.optString("Type");
+                if(currentFilter2.equals(type.toLowerCase())){
+                    jsonArraySearchFilter.put(currentFilter);
+                }
+            }
+            int cant = jsonArraySearchFilter.length();
+            quantity.setText(String.valueOf(cant) +" Results for "+type);
+            datosSearch = jsonArraySearchFilter;
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,7 +1,6 @@
 package quick.movie.pruebaquickandroid;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class MyAdapterListMovie extends BaseAdapter {
 

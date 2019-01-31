@@ -7,75 +7,34 @@
     tools:context=".SecondActivity"
     android:background="@color/colorPrimary">
 
-    <EditText
-        android:id="@+id/editTextName"
+    <TextView
+        android:id="@+id/textViewQuantity"
         android:layout_width="386dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="663dp"
+        android:layout_marginBottom="692dp"
         android:ems="10"
+        android:gravity="center"
         android:text="Search"
         android:textColor="#333"
-        android:textSize="17sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
-        app:layout_constraintVertical_bias="0.026" />
-
-    <RadioGroup
-        android:id="@+id/radioGroupSecondActivity"
-        android:layout_width="167dp"
-        android:layout_height="26dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/radioButtonMovieSecActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movie"
-            android:textColor="#333"
-            android:textSize="17sp" />
-
-        <RadioButton
-            android:id="@+id/radioButtonSerieSecActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Serie"
-            android:textColor="#333"
-            android:textSize="17sp" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/textViewQuantity"
-        android:layout_width="229dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="56dp"
-        android:textColor="#333"
-        android:text=""
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/listViewSearch"
         android:layout_width="0dp"
-        android:layout_height="601dp"
+        android:layout_height="674dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName"
-        android:background="@color/colorPrimary"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
 
 </android.support.constraint.ConstraintLayout>

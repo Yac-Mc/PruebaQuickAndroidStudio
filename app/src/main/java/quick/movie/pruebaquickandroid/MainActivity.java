@@ -15,13 +15,17 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSearch;
     private RadioButton radioButtonMovie;
     private RadioButton radioButtonSerie;
-    public static final int MOVIE_OPTION = 1;
-    public static final int SERIE_OPTION = 2;
+    public static final String MOVIE_OPTION = "Movie";
+    public static final String SERIE_OPTION = "Series";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Carga del icono en el Action Bar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_quick_icon_round);
 
         editTextName = findViewById(R.id.editTextName);
         btnSearch = findViewById(R.id.buttonSearch);
@@ -33,23 +37,37 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nameMovieSerie = editTextName.getText().toString();
                 int nameMovieSerieCount = nameMovieSerie.length();
-                int option = (radioButtonSerie.isChecked()) ? SERIE_OPTION : MOVIE_OPTION;
 
-                if(nameMovieSerie != null && !nameMovieSerie.isEmpty()){
-                    if(nameMovieSerieCount >= 3){
-                        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                        intent.putExtra("nameMovieSerie", nameMovieSerie);
-                        intent.putExtra("option", option);
-                        startActivity(intent);
+                if(radioButtonMovie.isChecked()){
+                    if(nameMovieSerie != null && !nameMovieSerie.isEmpty()) {
+                        if(nameMovieSerieCount >= 3) {
+                            String option = MOVIE_OPTION;
+                            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                            intent.putExtra("nameMovieSerie", nameMovieSerie);
+                            intent.putExtra("option", option);
+                            startActivity(intent);
+                        }else{
+                            MessagesToast.myToastNameMovieSerie3(MainActivity.this);
+                        }
                     }else{
-                        MessagesToast.myToastNameMovieSerie3(MainActivity.this);
-                    }
-                }else{
-                    if(option == 1 ){
                         MessagesToast.myToastRadioButtonMovie(MainActivity.this);
+                    }
+                }else if(radioButtonSerie.isChecked()){
+                    if(nameMovieSerie != null && !nameMovieSerie.isEmpty()) {
+                        if(nameMovieSerieCount >= 3) {
+                            String option = SERIE_OPTION;
+                            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                            intent.putExtra("nameMovieSerie", nameMovieSerie);
+                            intent.putExtra("option", option);
+                            startActivity(intent);
+                        }else{
+                            MessagesToast.myToastNameMovieSerie3(MainActivity.this);
+                        }
                     }else{
                         MessagesToast.myToastRadioButtonSerie(MainActivity.this);
                     }
+                }else{
+                    MessagesToast.myToastRadioButtonEmpty(MainActivity.this);
                 }
             }
         });

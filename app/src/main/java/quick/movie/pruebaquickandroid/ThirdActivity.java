@@ -3,8 +3,10 @@ package quick.movie.pruebaquickandroid;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -25,25 +27,33 @@ public class ThirdActivity extends AppCompatActivity {
     //Variable para extraer data del json
     private String nameTitle = "";
     private String image = "";
+    private int calification;
 
     //Elementos UI
     private ImageView imagen;
     private TextView nameTitleDetail;
     private TextView yearDetail;
-    private TextView calificationValue;
+//    private TextView calificationValue;
     private TextView genreDetail;
     private TextView actorDetail;
     private TextView descriptionDetail;
+    private ImageView star1;
+    private ImageView star2;
+    private ImageView star3;
+    private ImageView star4;
+    private ImageView star5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
+        //Flecha para devolverse
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         imagen = findViewById(R.id.imageViewDetail);
         nameTitleDetail = findViewById(R.id.textViewTitleDetail);
         yearDetail = findViewById(R.id.textViewYear);
-        calificationValue = findViewById(R.id.textViewCalification);
         genreDetail = findViewById(R.id.textViewGenre);
         actorDetail = findViewById(R.id.textViewActor);
         descriptionDetail = findViewById(R.id.textViewDescription);
@@ -62,6 +72,35 @@ public class ThirdActivity extends AppCompatActivity {
                 .fit()
                 .centerInside()
                 .into(imagen);
+
+        star1 = findViewById(R.id.star1);
+        star2 = findViewById(R.id.star2);
+        star3 = findViewById(R.id.star3);
+        star4 = findViewById(R.id.star4);
+        star5 = findViewById(R.id.star5);
+
+        if(calification <= 2){
+            star2.setVisibility(View.INVISIBLE);
+            star3.setVisibility(View.INVISIBLE);
+            star4.setVisibility(View.INVISIBLE);
+            star5.setVisibility(View.INVISIBLE);
+        }else if(calification > 2 && calification <= 4){
+            star3.setVisibility(View.INVISIBLE);
+            star4.setVisibility(View.INVISIBLE);
+            star5.setVisibility(View.INVISIBLE);
+        }else if (calification > 4 && calification <= 6){
+            star4.setVisibility(View.INVISIBLE);
+            star5.setVisibility(View.INVISIBLE);
+        }else if(calification > 6 && calification <= 8){
+            star5.setVisibility(View.INVISIBLE);
+        }else{
+            star1.setVisibility(View.VISIBLE);
+            star2.setVisibility(View.VISIBLE);
+            star3.setVisibility(View.VISIBLE);
+            star4.setVisibility(View.VISIBLE);
+            star5.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void getDataDetail(String nameTitle){
@@ -100,12 +139,17 @@ public class ThirdActivity extends AppCompatActivity {
             actorDetail.setText(myObject.optString("Actors"));
             descriptionDetail.setText(myObject.optString("Plot"));
 
-            JSONArray jsonArrayRatings = myObject.getJSONArray("Ratings");
+            ratingsValue = myObject.optString("imdbRating");
+            if(ratingsValue != null && !ratingsValue.isEmpty()){
+                String[] valueRatings = ratingsValue.split("");
+                try{
+                    calification = (valueRatings[0].isEmpty()) ? Integer.valueOf(valueRatings[1]) : Integer.valueOf(valueRatings[0]);
+                }catch (Exception e){
+                    System.out.println("ERROR: el valor "+ratingsValue+" de la calificación, no es un valor númerico o empieza con un caracter especial");
+                }
 
-            for(int i = 0; i < jsonArrayRatings.length(); i++ ){
-                JSONObject jsonObjectRatings = jsonArrayRatings.getJSONObject(i);
-                ratingsValue = jsonObjectRatings.optString("Value");
-                calificationValue.setText(ratingsValue);
+            }else{
+                calification = 0;
             }
 
 
